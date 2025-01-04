@@ -27,6 +27,14 @@ def show_data(car)
   puts car[:type]
   puts "1Lあたりの走行可能距離:#{car[:fuel_economy]}km/l"
   puts "乗車人数:#{car[:capacity]}人"
+  puts "これから走る距離（km）を入力してください"
+  input_distance = gets.to_f
+  calculate_fuel_consumption(car, input_distance)
+end
+
+def calculate_fuel_consumption(car, distance)
+  fuel_consumption = distance / car[:fuel_economy]
+  puts "その目的地までは、ガソリンを#{fuel_consumption.round(1)}L消費します。"
 end
 
 cars = []
@@ -49,3 +57,5 @@ while true do
     puts "無効な値です"
   end
 end
+
+#round(1)とすることで、小数点以下１桁までになるように四捨五入する
