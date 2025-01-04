@@ -29,7 +29,7 @@ def show_data_list(data)
   character = data[input]
   puts "名前：#{character[:name]}"
   puts "パンチ力：#{character[:punch]}"
-  puts "キック力：#{character[:kich]}"
+  puts "キック力：#{character[:kick]}"
   puts "ジャンプ力：#{character[:jump]}"
 end
 
