@@ -31,13 +31,30 @@ def show_data(car)
   puts "これから走る距離(km)を入力して下さい。"
   input_distance = gets.to_f
 
+  puts "何人乗車しますか？"
+  ride_people = gets.to_i
+  
   calculate_fuel_consumption(car, input_distance)
+  determine_capacity_exceeded(car, ride_people)
 end
 
 def calculate_fuel_consumption(car, distance)
   fuel_consumption = distance / car[:fuel_economy]
   puts "その目的地までは、ガソリンを#{fuel_consumption.round(1)}L消費します。"
 end
+
+def determine_capacity_exceeded(car, ride_people)
+  capacity = car[:capacity] - ride_people
+
+  if capacity == 0
+    puts "定員丁度です"
+  elsif car[:capacity] > ride_people
+    puts "あと#{ capacity }人乗ることが出来ます。"
+  else
+    puts "#{ capacity.abs }人オーバーしています。"
+  end
+end
+  
 
 cars = []
 
