@@ -1,33 +1,43 @@
 def post_item(a_cart)
   # 商品名・値段・個数の入力を促し、入力された値をハッシュオブジェクトで管理する
+    cart = {}  
     puts "商品名を入力してください："
+    cart[:name] = gets.chomp
     puts "値段を入力してください："
+    cart[:price] = gets.to_i
     puts "個数を入力してください："
-  
+    cart[:number_pieces] = gets.to_i
+
     line = "---------------------------"
   
   # 入力された値（ハッシュオブジェクトで管理している値）と合計金額を表示する
-    puts "商品名 : "
-    puts "値段 : "
-    puts "個数 : "
-    puts "合計金額 : "
+    puts "商品名 : #{cart[:name]}"
+    puts "値段 : #{cart[:price]}"
+    puts "個数 : #{cart[:number_pieces]}"
+    puts "合計金額 : #{cart[:price]*cart[:number_pieces]}"
   
   # ハッシュを配列オブジェクトに追加する
-  
+    a_cart << cart
   # a_cartをメソッドの呼び出し元に返す
-  
+    return a_cart
   end
   
   def check_items(a_cart)
   # 保存された全ての商品情報（商品名・値段・個数）を、商品ごとに表示する
-  
+    total_price = 0
   # 全ての商品の合計金額を表示する
-    puts "合計金額 : "
-  
+    a_cart.each do | cart |
+      puts "#{cart[:name]}"
+      puts "#{cart[:price]}"
+      puts "#{cart[:number_pieces]}"
+      total_price += cart[:price]*cart[:number_pieces]
+    end
+    puts "合計金額 : #{total_price}"
   end
   
   def end_program
     # プログラムを終了させる
+    exit
   end
   
   def exception
