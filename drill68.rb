@@ -30,7 +30,32 @@ def check_items(a_cart)
     puts "#{post[:name]}/#{post[:price]}/#{post[:count]}\n#{line}"
     total_price += post[:price] * post[:count]
   end
+  puts "合計金額 : #{total_price}\n#{line}"
+
+  puts "[1]購入を確定する"
+  puts "[2]買い物を続ける"
+  input = gets.to_i
+  
+  if input == 1
+    confirm_payment(total_price)
+  elsif input == 2
+    return
+  else 
+    exception
+  end
+end
+
+def  confirm_payment(total_price)
   puts "合計金額 : #{total_price}"
+  puts "支払金額を入力してください"
+  pay = gets.to_i
+  line = "---------------------------"
+  if total_price < pay
+    puts "おつりは#{pay - total_price}円です\n#{line}"
+  else
+    puts "支払額が不足しています。\n#{line}"
+    return confirm_payment(total_price)
+  end
 end
 
 def end_program
