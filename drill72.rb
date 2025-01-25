@@ -19,28 +19,41 @@ end
 
 def calculate_profit(item)
   # 保存された商品の情報を元に、利益と利益率を計算する
+  profit = item[:selling_price] - item[:cost_price]
+  profit_rate = profit.to_f / item[:selling_price].to_f
 
+  item[:profit] = profit
+  item[:profit_rate] = profit_rate
+  return item
 end
 
 def check_items(registered_item)
+  # 変数の定義
+  total_profit = 0
+  total_sales = 0
+
   # 保存された全ての商品情報（商品名・販売価格・仕入れ値）と、それぞれの利益・利益率を計算し、商品ごとに表示する
   line = "---------------------------"
   puts "【商品一覧】\n#{line}"
 
   registered_item.each do |item|
+    item = calculate_profit(item) # 利益計算のために、calculate_profitメソッドの呼び出し
     puts "商品名：#{item[:name]}"
     puts "販売価格：#{item[:selling_price]}円"
     puts "仕入れ値：#{item[:cost_price]}円"
-    puts "利益：円"
-    puts "利益率：%\n#{line}"
+    puts "利益：#{item[:profit]}円"
+    puts "利益率：#{(item[:profit_rate] * 100).round(2)}%\n#{line}"
+
+    total_profit += item[:profit]
+    total_sales += item[:selling_price]
   end
 
   # 全ての商品の合計（総売上・総利益・平均利益率）を表示する
+  profit_avarage = total_profit.to_f / total_sales.to_f
   puts "【合計】\n#{line}"
-  puts "総売上 : 円"
-  puts "総利益 : 円"
-  puts "平均利益率 : %\n#{line}"
-
+  puts "総売上 : #{total_sales}円"
+  puts "総利益 : #{total_profit}円"
+  puts "平均利益率 : #{(profit_avarage * 100).round(2)}%\n#{line}"
 end
 
 def end_program
